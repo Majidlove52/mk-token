@@ -1,0 +1,20 @@
+{
+  "name": "mkz-token",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MK Zone Token (MKZ) contracts for BNB Chain",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "6.1.0",
+    "@openzeppelin/contracts": "5.1.0",
+    "dotenv": "16.4.7",
+    "hardhat": "2.28.0",
+    "solidity-coverage": "0.8.16",
+    "ts-node": "10.9.2",
+    "typescript": "5.7.2"
+  }
+}

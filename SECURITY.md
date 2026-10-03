@@ -10,4 +10,4 @@ Maintainers will acknowledge reports as soon as reasonably possible, assess impa
 
 ## Scope
 
-The in-scope assets are the MKZ token, the team vesting wrapper, deployment configuration, and project-controlled workflows. Third-party protocol or infrastructure vulnerabilities should be reported to their respective maintainers.
+The in-scope assets are the MKA token, the team vesting wrapper, deployment configuration, and project-controlled workflows. Third-party protocol or infrastructure vulnerabilities should be reported to their respective maintainers.

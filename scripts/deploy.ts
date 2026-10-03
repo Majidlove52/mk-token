@@ -13,9 +13,9 @@ async function main() {
   }
   const startTimestamp = latestBlock.timestamp;
 
-  const token = await ethers.deployContract("MKZToken", [treasury]);
+  const token = await ethers.deployContract("MKAToken", [treasury]);
   await token.waitForDeployment();
-  const vesting = await ethers.deployContract("MKZTeamVesting", [
+  const vesting = await ethers.deployContract("MKATeamVesting", [
     beneficiary,
     startTimestamp,
   ]);
@@ -23,8 +23,8 @@ async function main() {
 
   const tokenAddress = await token.getAddress();
   const vestingAddress = await vesting.getAddress();
-  console.log(`MKZToken: ${tokenAddress}`);
-  console.log(`MKZTeamVesting: ${vestingAddress}`);
+  console.log(`MKAToken: ${tokenAddress}`);
+  console.log(`MKATeamVesting: ${vestingAddress}`);
   console.log(`Vesting start timestamp: ${startTimestamp}`);
   console.log("Verify commands:");
   console.log(

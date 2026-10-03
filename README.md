@@ -1,6 +1,6 @@
-# MK Zone Token (MKZ)
+# MK Alpha (MKA)
 
-MKZ is a fixed-supply BEP-20 utility token for BNB Chain. The token has no owner privileges, minting after deployment, blacklist, pause, transfer tax, or upgrade mechanism. Holders can transfer and burn tokens; a separate vesting wallet provides a 12-month cliff followed by linear vesting through month 36.
+MKA is a fixed-supply BEP-20 utility token for BNB Chain. The token has no owner privileges, minting after deployment, blacklist, pause, transfer tax, or upgrade mechanism. Holders can transfer and burn tokens; a separate vesting wallet provides a 12-month cliff followed by linear vesting through month 36.
 
 ## Requirements
 

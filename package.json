@@ -1,8 +1,8 @@
 {
-  "name": "mkz-token",
+  "name": "mka-token",
   "version": "1.0.0",
   "private": true,
-  "description": "MK Zone Token (MKZ) contracts for BNB Chain",
+  "description": "MK Alpha (MKA) contracts for BNB Chain",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",

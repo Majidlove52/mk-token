@@ -1,8 +1,8 @@
-# MKZ Tokenomics
+# MKA Tokenomics
 
 ## Supply
 
-MKZ has a fixed initial supply of **1,000,000,000 tokens**, minted once to the treasury at deployment. The contract has no post-deployment mint function. Holders may burn their own tokens or tokens for which they have allowance, permanently reducing the circulating and total supply.
+MKA has a fixed initial supply of **1,000,000,000 tokens**, minted once to the treasury at deployment. The contract has no post-deployment mint function. Holders may burn their own tokens or tokens for which they have allowance, permanently reducing the circulating and total supply.
 
 ## Proposed allocation
 

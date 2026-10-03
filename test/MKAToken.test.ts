@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("MKZToken", function () {
+describe("MKAToken", function () {
   const totalSupply = 1_000_000_000n * 10n ** 18n;
 
   async function deployToken() {
     const [treasury] = await ethers.getSigners();
-    const token = await ethers.deployContract("MKZToken", [treasury.address]);
+    const token = await ethers.deployContract("MKAToken", [treasury.address]);
     await token.waitForDeployment();
     return { token, treasury };
   }
@@ -14,16 +14,16 @@ describe("MKZToken", function () {
   it("has the expected metadata and fixed supply held by treasury", async function () {
     const { token, treasury } = await deployToken();
 
-    expect(await token.name()).to.equal("MK Zone Token");
-    expect(await token.symbol()).to.equal("MKZ");
+    expect(await token.name()).to.equal("MK Alpha");
+    expect(await token.symbol()).to.equal("MKA");
     expect(await token.decimals()).to.equal(18);
     expect(await token.totalSupply()).to.equal(totalSupply);
     expect(await token.balanceOf(treasury.address)).to.equal(totalSupply);
   });
 
   it("rejects a zero-address treasury", async function () {
-    await expect(ethers.deployContract("MKZToken", [ethers.ZeroAddress]))
-      .to.be.revertedWith("MKZ: treasury is zero address");
+    await expect(ethers.deployContract("MKAToken", [ethers.ZeroAddress]))
+      .to.be.revertedWith("MKA: treasury is zero address");
   });
 
   it("supports transfer, approve, and transferFrom", async function () {

@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { ethers } from "hardhat";
 
-describe("MKZTeamVesting", function () {
+describe("MKATeamVesting", function () {
   const cliff = 365n * 24n * 60n * 60n;
   const duration = 3n * cliff;
   const allocation = 900n;
@@ -10,8 +10,8 @@ describe("MKZTeamVesting", function () {
   async function deployVesting() {
     const [, beneficiary, other] = await ethers.getSigners();
     const startTimestamp = BigInt(await time.latest()) + 1n;
-    const token = await ethers.deployContract("MKZToken", [beneficiary.address]);
-    const vesting = await ethers.deployContract("MKZTeamVesting", [
+    const token = await ethers.deployContract("MKAToken", [beneficiary.address]);
+    const vesting = await ethers.deployContract("MKATeamVesting", [
       beneficiary.address,
       startTimestamp,
     ]);

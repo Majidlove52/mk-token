@@ -42,6 +42,8 @@ The script prints contract addresses and BscScan verification commands. It does 
 
 Follow the [testnet guide](docs/testnet-guide.md) for setup, deployment, verification, and distribution. Track outstanding launch gates in the [mainnet readiness checklist](docs/mainnet-readiness.md).
 
+For the one-command testnet release sequence, use the [deployment runbook](docs/deployment-runbook.md) and track final gates in the [release checklist](docs/release-checklist.md).
+
 ## Documentation
 
 - [Whitepaper](docs/whitepaper.md)
@@ -53,6 +55,8 @@ Follow the [testnet guide](docs/testnet-guide.md) for setup, deployment, verific
 - [Staking and gate security notes](docs/security-notes.md)
 - [Public burn policy](docs/burn-policy.md)
 - [dApp guide](docs/dapp-guide.md)
+- [Deployment runbook](docs/deployment-runbook.md)
+- [Release checklist](docs/release-checklist.md)
 - [Token-gate service setup](gate/README.md)
 - [Transparency and staking dApp](app/index.html)
 - [Static website](website/index.html)

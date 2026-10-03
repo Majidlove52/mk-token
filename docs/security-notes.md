@@ -1,4 +1,4 @@
-# Staking and Gate Security Notes
+# Staking, Burn Vault, and dApp Security Notes
 
 This is a working threat model for review, not an audit report or a claim that the system is secure. Do not use for mainnet until independent review and remediation are complete.
 
@@ -38,3 +38,18 @@ The gate is an application authorization service, not an on-chain custody compon
 ## External audit scope
 
 The auditor should review staking constructor validation, tier boundaries, timestamp arithmetic, lock reset semantics, zero/oversized amounts, aggregate accounting, token transfer failure behavior, reentrancy resistance, and the absence of privileged fund movement. Review the gate's nonce generation and expiry, signature/address binding, replay behavior, session expiration and binding, rate limits, CORS, input, RPC outages, and deployment assumptions. Include dependency review and operational controls. Publish findings and remediation status before mainnet use.
+
+## Burn vault threat model
+
+The vault holds only MKA sent to its public address and permits any caller to burn the entire pending balance through the token's standard `burn` method. It has no owner, admin, withdrawal, fee, or arbitrary transfer function. The auditor should verify the immutable token address and zero-address check, zero-balance revert, `nonReentrant` guard, checks-effects-interactions accounting, event attribution, cumulative `totalBurnedByVault`, and inability to redirect vault-held tokens. Verify the deployed token is the intended MKA contract.
+
+## Transparency and staking dApp threat model
+
+- Wrong-network reads or writes can display misleading data or call unintended contracts. The app must check both configured chain ID and provider chain ID before displaying data or enabling writes, and clearly require BSC Testnet.
+- Phishing clones can imitate the interface or substitute contract addresses. Publish the canonical site and addresses through verified official channels; verify all configured addresses and BscScan links before release.
+- Staking requires token allowance. The app requests only the exact intended stake amount, explains approval and stake as separate transactions, and must never request an unlimited allowance by default. Users should inspect the token, spender, amount, and wallet network before signing.
+- Wallet rejection, RPC errors, stale reads, and transaction failures must not be reported as success. The app should display provider errors, wait for receipts, and refresh balances after confirmation.
+- The read-only RPC URL and Vite variables are public build-time configuration, not secrets. Do not place credentials in `VITE_` variables; do not persist wallet data, signatures, or private information in browser storage.
+- The burn button invokes a public irreversible burn of the entire vault balance. Clearly show the current pending amount and confirmation transaction; verify the vault address before signing.
+
+The dApp review should include wrong-chain enforcement, address validation, malicious configuration, approval scope, rejected/failed transactions, stale data handling, copy/explorer link correctness, phishing presentation, and static hosting/build artifact review. Review the burn vault and dApp alongside the staking contract before mainnet use.

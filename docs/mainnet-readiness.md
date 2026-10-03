@@ -8,6 +8,8 @@ Do not deploy to mainnet until every applicable item is complete and its evidenc
 | Slither analysis and remediation | Security lead | Not started |
 | MKA staking contract audit | Security lead | Not started |
 | Token-gate service security review | Security lead | Not started |
+| MKA burn vault audit | Security lead | Not started |
+| Transparency and staking dApp review | Product and security leads | Not started |
 | Safe Multisig treasury with 3 of 5 signers | Treasury lead | Not started |
 | Liquidity lock for 12+ months | Treasury lead | Not started |
 | Team KYC | Operations lead | Not started |

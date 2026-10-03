@@ -51,7 +51,10 @@ Follow the [testnet guide](docs/testnet-guide.md) for setup, deployment, verific
 - [Brand and official links](docs/brand-and-links.md)
 - [Staking access tiers](docs/staking.md)
 - [Staking and gate security notes](docs/security-notes.md)
+- [Public burn policy](docs/burn-policy.md)
+- [dApp guide](docs/dapp-guide.md)
 - [Token-gate service setup](gate/README.md)
+- [Transparency and staking dApp](app/index.html)
 - [Static website](website/index.html)
 
 ## Tokenomics and security

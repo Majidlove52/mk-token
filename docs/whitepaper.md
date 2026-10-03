@@ -50,6 +50,7 @@ The team vesting schedule has a 12-month cliff and a 36-month total duration. Th
 ## Buyback and burn policy
 
 If a buyback program is legally approved and adopted, its proposed funding source is **[__%] of net subscription revenue**. The percentage is a configurable placeholder and is not a current commitment. Before any program begins, publish the approved percentage, the definition of net subscription revenue, exclusions, schedule, execution wallet, and reporting method. Report any executed buyback and burn transactions with on-chain references. Burns use the standard token burn functions and permanently reduce total supply.
+If a buyback program is legally approved and adopted, its proposed funding source is **[__%] of net subscription revenue**. The percentage is a configurable placeholder and is not a current commitment. Before any program begins, publish the approved percentage, the definition of net subscription revenue, exclusions, schedule, execution wallet, and reporting method. MKA voluntarily acquired under an approved policy may be sent to the public `MKABurnVault`; anyone can call `burnAll()` to permanently burn the vault's entire pending balance. Report buyback funding, transfers to the vault, caller, burn amount, and transaction links using on-chain records. The vault does not buy tokens or hold revenue itself.
 
 No buyback, burn, price effect, or financial return is guaranteed. A burn does not establish a token price or ensure demand.
 

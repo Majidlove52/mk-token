@@ -38,6 +38,10 @@ npx hardhat run scripts/deploy.ts --network bscTestnet
 
 The script prints contract addresses and BscScan verification commands. It does not deploy to mainnet and does not automatically fund the vesting wallet; transfer the intended team allocation to its address only after reviewing the allocation and operational controls. Mainnet deployment requires an external audit, a Multisig treasury, and a liquidity lock first.
 
+## Testnet workflow
+
+Follow the [testnet guide](docs/testnet-guide.md) for setup, deployment, verification, and distribution. Track outstanding launch gates in the [mainnet readiness checklist](docs/mainnet-readiness.md).
+
 ## Tokenomics and security
 
 See [docs/tokenomics.md](docs/tokenomics.md) for the proposed allocation and utility, and [docs/audit-checklist.md](docs/audit-checklist.md) for pre-mainnet readiness items. Report vulnerabilities according to [SECURITY.md](SECURITY.md).

@@ -42,6 +42,15 @@ The script prints contract addresses and BscScan verification commands. It does 
 
 Follow the [testnet guide](docs/testnet-guide.md) for setup, deployment, verification, and distribution. Track outstanding launch gates in the [mainnet readiness checklist](docs/mainnet-readiness.md).
 
+## Documentation
+
+- [Whitepaper](docs/whitepaper.md)
+- [Litepaper](docs/litepaper.md)
+- [Launch plan](docs/launch-plan.md)
+- [Legal notes](docs/legal-notes.md)
+- [Brand and official links](docs/brand-and-links.md)
+- [Static website](website/index.html)
+
 ## Tokenomics and security
 
 See [docs/tokenomics.md](docs/tokenomics.md) for the proposed allocation and utility, and [docs/audit-checklist.md](docs/audit-checklist.md) for pre-mainnet readiness items. Report vulnerabilities according to [SECURITY.md](SECURITY.md).

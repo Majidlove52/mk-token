@@ -49,6 +49,9 @@ Follow the [testnet guide](docs/testnet-guide.md) for setup, deployment, verific
 - [Launch plan](docs/launch-plan.md)
 - [Legal notes](docs/legal-notes.md)
 - [Brand and official links](docs/brand-and-links.md)
+- [Staking access tiers](docs/staking.md)
+- [Staking and gate security notes](docs/security-notes.md)
+- [Token-gate service setup](gate/README.md)
 - [Static website](website/index.html)
 
 ## Tokenomics and security

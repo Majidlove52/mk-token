@@ -1,0 +1,11 @@
+{
+  "chainId": 97,
+  "timestamp": 0,
+  "deployer": "",
+  "contracts": {
+    "MKAToken": null,
+    "MKATeamVesting": null,
+    "MKAStaking": null,
+    "MKABurnVault": null
+  }
+}

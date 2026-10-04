@@ -1,14 +1,18 @@
 # Brand and Official Links
 
-Complete and verify these placeholders before public launch. Publish the same canonical links through every official channel.
+Use the confirmed repository link below as the only supplied official destination. Other details remain explicitly unprovided; verify and publish canonical links consistently before public launch.
 
 | Channel | Official link |
 | --- | --- |
-| Website | [WEBSITE_URL] |
-| X | [X_PROFILE_URL] |
-| Telegram | [TELEGRAM_URL] |
-| GitHub | [GITHUB_ORGANIZATION_URL] |
-| BscScan token contract | [VERIFIED_BSCSCAN_TOKEN_URL] |
+| Website | TBD (not provided) |
+| X | TBD (not provided) |
+| Telegram | TBD (not provided) |
+| GitHub | https://github.com/Majidlove52/mk-token |
+| BscScan token contract | Not deployed |
+| Support email | TBD (not provided) |
+| Team names and public profiles | TBD (not provided) |
+| Approximate launch date | TBD (not provided) |
+| Sale method | Undecided |
 
 ## Anti-scam guidance
 

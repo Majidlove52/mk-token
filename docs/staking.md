@@ -11,9 +11,9 @@ Thresholds are constructor parameters set at deployment and are denominated in M
 | Tier | Minimum staked MKA | Example access |
 | --- | ---: | --- |
 | 0 | Below tier 1 | No tier-gated features |
-| 1 | [TIER1] | Basic scanner |
-| 2 | [TIER2] | Basic scanner and advanced indicators |
-| 3 | [TIER3] | Tier 2 features and premium signals |
+| 1 | TBD (threshold not provided) | Basic scanner |
+| 2 | TBD (threshold not provided) | Basic scanner and advanced indicators |
+| 3 | TBD (threshold not provided) | Tier 2 features and premium signals |
 
 Tier thresholds are fixed for each deployed staking contract. A wallet's current tier is calculated from its current staked balance.
 

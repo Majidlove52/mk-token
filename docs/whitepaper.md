@@ -1,6 +1,6 @@
 # MK Alpha (MKA) Whitepaper
 
-**Status:** Working draft. Product details, dates, personnel, commercial terms, and links marked as placeholders require review before publication.
+**Status:** Working draft. Launch timing, team identities, Buyback percentage, and several official destinations have not been provided and require confirmation before publication.
 
 ## Abstract
 
@@ -49,7 +49,7 @@ The team vesting schedule has a 12-month cliff and a 36-month total duration. Th
 
 ## Buyback and burn policy
 
-Any buyback policy and dedicated buyback-and-burn workflow are planned, subject to independent audit, legal review, and separate approval; they are not available at launch. The proposed funding source is **[__%] of net subscription revenue**, an unfilled placeholder and not a commitment. Before any program begins, publish its approved terms, funding calculation, schedule, execution controls, and reporting method.
+Any buyback policy and dedicated buyback-and-burn workflow are planned, subject to independent audit, legal review, and separate approval; they are not available at launch. The funding share is **Later (percentage not set; subject to separate approval)**, not a commitment. Before any program begins, publish its approved terms, funding calculation, schedule, execution controls, and reporting method.
 
 Token holders may use the token contract's own standard burn function. This does not imply that a buyback program or dedicated burn vault is available. No buyback, burn policy, price effect, or financial return is guaranteed.
 
@@ -63,10 +63,10 @@ Before any mainnet launch, the project intends to publish verified source on Bsc
 
 Timing and scope are placeholders. The initial core phase includes token, vesting, Safe Multisig treasury, liquidity lock, and transparency page. Staking, burn vault, token gate, and related utilities are deferred to Phase 2, planned subject to independent audit. Each phase requires review and may change; no delivery date is guaranteed.
 
-| Phase | Target quarter | Scope placeholder | Status |
+| Phase | Target quarter | Scope | Status |
 | --- | --- | --- | --- |
-| 1 | [Quarter / Year] | Core token and vesting launch with operational controls and transparency | [TBD] |
-| 2 | [Quarter / Year] | Staking, burn vault, and token gate after independent audit and remediation | Deferred |
+| 1 | TBD (launch date not provided) | Core token and vesting launch with operational controls and transparency | Pending |
+| 2 | TBD (date not provided) | Staking, burn vault, and token gate after independent audit and remediation | Deferred |
 
 ## Team
 
@@ -74,9 +74,9 @@ Names, roles, biographies, and disclosures must be completed and verified before
 
 | Name | Role | Experience / public profile |
 | --- | --- | --- |
-| [Name] | [Role] | [Verified biography and link] |
-| [Name] | [Role] | [Verified biography and link] |
-| [Name] | [Role] | [Verified biography and link] |
+| Not provided | Not provided | Biography and public profile not provided |
+| Not provided | Not provided | Biography and public profile not provided |
+| Not provided | Not provided | Biography and public profile not provided |
 
 ## Legal disclaimer and risk factors
 

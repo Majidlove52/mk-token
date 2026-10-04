@@ -99,7 +99,7 @@ The middleware sends the request's bearer token to the Gate's `/session` endpoin
 Plain-fetch integration without the SDK (the bearer stays in a local variable and is never logged or persisted):
 
 ```ts
-const GATE_URL = "[GATE_URL]";
+const GATE_URL = "TBD: configure only after the approved Phase 2 deployment";
 const provider = new BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
 const address = await signer.getAddress();

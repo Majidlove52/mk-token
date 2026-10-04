@@ -1,6 +1,6 @@
 # MK Alpha (MKA) Litepaper
 
-**Draft summary:** details marked as placeholders are not commitments and require review before publication.
+**Draft summary:** launch timing, team identities, and the Buyback percentage have not been provided and are not commitments.
 
 ## What is MK Alpha?
 
@@ -33,7 +33,7 @@ The proposed team allocation has a 12-month cliff and a 36-month total vesting d
 
 The token contract has no blacklist, transfer taxes, pause control, or upgrade mechanism. Before a mainnet launch, the project intends to publish verified BscScan source, an independent audit and remediation status, a disclosed liquidity lock, and Safe Multisig treasury controls. Completion of these items must be verified through official records; this draft does not claim they are complete.
 
-Any buyback policy and dedicated buyback-and-burn workflow are planned, subject to independent audit, legal review, and separate approval; they are not available at launch. The proposed funding source of **[__%] of net subscription revenue** is an unfilled placeholder, not a commitment. Any approved policy should publish its exact calculation, approvals, execution addresses, and transaction records. Token-holder burns do not imply a buyback program or guarantee price effects or financial returns.
+Any buyback policy and dedicated buyback-and-burn workflow are planned, subject to independent audit, legal review, and separate approval; they are not available at launch. The funding share is **Later (percentage not set; subject to separate approval)**, not a commitment. Any approved policy should publish its exact calculation, approvals, execution addresses, and transaction records. Token-holder burns do not imply a buyback program or guarantee price effects or financial returns.
 
 ## Launch phases
 
@@ -41,7 +41,7 @@ Phase 1 comprises the token, team vesting, Safe Multisig treasury, disclosed liq
 
 ## Roadmap and team
 
-Quarterly phases, scope, and dates are **[TBD]**. Team names, roles, biographies, and public profiles are **[TBD]** and must be verified before publication. No delivery schedule is guaranteed.
+Quarterly phases and scope remain subject to change; the launch date is **TBD (not provided)**. Team names, roles, biographies, and public profiles are **TBD (not provided)** and must be verified before publication. No delivery schedule is guaranteed.
 
 ## Important risks
 

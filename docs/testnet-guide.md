@@ -11,7 +11,7 @@ npm ci
 cp .env.example .env
 ```
 
-Set `BSC_TESTNET_RPC_URL`, `DEPLOYER_PRIVATE_KEY`, `TREASURY_ADDRESS`, `TEAM_BENEFICIARY`, and `BSCSCAN_API_KEY` if verification is needed. After deployment, set `TOKEN_ADDRESS` and `TEAM_VESTING_ADDRESS`, then assign distinct addresses to `PUBLIC_SALE_WALLET`, `LIQUIDITY_WALLET`, `ECOSYSTEM_WALLET`, `MARKETING_WALLET`, and `RESERVE_WALLET`. Keep `DRY_RUN=true` until the plan has been reviewed. Use a disposable testnet key only.
+Set `BSC_TESTNET_RPC_URL`, `DEPLOYER_PRIVATE_KEY`, `TREASURY_ADDRESS`, and `TEAM_BENEFICIARY`; set `BSCSCAN_API_KEY` only if verification is needed. `DEPLOY_PROFILE=core` is the default. The core profile does not require tier thresholds. Keep `DRY_RUN=true` until the plan has been reviewed. Use a dedicated testnet key only.
 
 ## 2. Fund the testnet signer
 
@@ -26,13 +26,13 @@ npm test
 
 ## 4. Deploy to testnet
 
-Set the treasury and team beneficiary in `.env`, then run:
+Set the treasury and team beneficiary in `.env`, then review the core dry run:
 
 ```sh
-npx hardhat run scripts/deploy.ts --network bscTestnet
+DEPLOY_PROFILE=core DRY_RUN=true npx hardhat run scripts/deployAll.ts --network bscTestnet
 ```
 
-Record both contract addresses and the vesting start timestamp printed by the script. The token supply is minted to the treasury; the team wallet is not funded until the distribution step.
+The plan includes `MKAToken` and `MKATeamVesting` only. The token supply is minted to the treasury; the team wallet is not funded until a separately reviewed distribution step. Follow [the deployment runbook](deployment-runbook.md) before any separately authorized testnet transaction.
 
 ## 5. Verify on BscScan
 
@@ -63,3 +63,5 @@ The script validates every address, uniqueness, the 100% allocation total, and t
 - [ ] Use the vesting time-travel tests to confirm `releasable(token)` is zero before the cliff and positive at/after the cliff.
 - [ ] Review the distribution dry-run output before setting `DRY_RUN=false`.
 - [ ] Confirm the team vesting wallet holds exactly 150,000,000 MKA after distribution.
+
+Staking and burn-vault deployment and QA are deferred to Phase 2; see [launch phases](launch-phases.md).

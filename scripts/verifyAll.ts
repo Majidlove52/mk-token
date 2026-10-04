@@ -2,14 +2,12 @@ import "dotenv/config";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { ethers, network, run } from "hardhat";
-import type { DeploymentContractName, DeploymentRecord } from "./lib/deployAll";
-
-const contractNames: DeploymentContractName[] = [
-  "MKAToken",
-  "MKATeamVesting",
-  "MKAStaking",
-  "MKABurnVault",
-];
+import {
+  getContractOrder,
+  getRecordProfile,
+  type DeploymentContractName,
+  type DeploymentRecord,
+} from "./lib/deployAll";
 
 interface BscScanSourceResult {
   SourceCode?: string;
@@ -77,6 +75,7 @@ async function main(): Promise<void> {
   if (record.chainId !== 97) {
     throw new Error(`Deployment record chain ID must be 97, received ${record.chainId}`);
   }
+  const contractNames = getContractOrder(getRecordProfile(record));
 
   const summary = { verified: 0, alreadyVerified: 0, skipped: 0, failed: 0 };
   for (const contractName of contractNames) {

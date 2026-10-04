@@ -1,5 +1,7 @@
 # MKA Gate Integration
 
+**Phase 2 (deferred):** token-gated access and this gate integration are planned, subject to independent audit and remediation. They are not available at the initial core launch. See [launch phases](launch-phases.md) for entry criteria.
+
 The gate authorizes app features from MKA staking state on BSC Testnet (chain ID 97). Wallet signatures establish control of an address; the Gate reads the address's current tier from the staking contract. The client SDK can display tiers and locked UI, but **every protected API route must enforce its feature on the server**.
 
 ## Architecture

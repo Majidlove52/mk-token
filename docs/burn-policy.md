@@ -1,6 +1,8 @@
 # MKA Buyback and Burn Policy
 
-This policy describes a proposed, voluntary process. It is not a commitment to buy tokens, spend revenue, burn on a schedule, or support any token price.
+**Phase 2 (deferred):** any buyback policy and dedicated burn-vault workflow are planned, subject to independent audit, legal review, and separate approval. They are not available at the initial core launch. See [launch phases](launch-phases.md) for entry criteria.
+
+This document describes a proposed, voluntary process. It is not a commitment to buy tokens, spend revenue, burn on a schedule, or support any token price. The token's holder-operated burn function is separate from this proposed policy.
 
 ## Process
 

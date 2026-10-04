@@ -4,7 +4,9 @@ import { resolve } from "node:path";
 import { ethers, network } from "hardhat";
 import {
   assertBscTestnetChainId,
+  resolveDeploymentProfile,
   runDeployAll,
+  type DeploymentProfile,
   type DeploymentContractName,
   type DeploymentEnvironment,
   type DeploymentRecord,
@@ -14,6 +16,10 @@ function requiredEnvironmentValue(name: string): string {
   const value = process.env[name];
   if (!value) throw new Error(`Set ${name} in .env`);
   return value;
+}
+
+function deploymentProfile(): DeploymentProfile {
+  return resolveDeploymentProfile(process.env.DEPLOY_PROFILE);
 }
 
 function readDeploymentRecord(path: string): DeploymentRecord | undefined {
@@ -32,6 +38,7 @@ async function main(): Promise<void> {
 
   const chain = await ethers.provider.getNetwork();
   assertBscTestnetChainId(chain.chainId);
+  const profile = deploymentProfile();
 
   const dryRunSetting = (process.env.DRY_RUN ?? "true").toLowerCase();
   if (dryRunSetting !== "true" && dryRunSetting !== "false") {
@@ -42,9 +49,13 @@ async function main(): Promise<void> {
     rpcUrl: requiredEnvironmentValue("BSC_TESTNET_RPC_URL"),
     treasuryAddress: requiredEnvironmentValue("TREASURY_ADDRESS"),
     teamBeneficiary: requiredEnvironmentValue("TEAM_BENEFICIARY"),
-    tier1: requiredEnvironmentValue("TIER1"),
-    tier2: requiredEnvironmentValue("TIER2"),
-    tier3: requiredEnvironmentValue("TIER3"),
+    ...(profile === "full"
+      ? {
+          tier1: requiredEnvironmentValue("TIER1"),
+          tier2: requiredEnvironmentValue("TIER2"),
+          tier3: requiredEnvironmentValue("TIER3"),
+        }
+      : {}),
   };
   const [signer] = await ethers.getSigners();
   if (!signer) throw new Error("No deployer signer is configured");
@@ -57,6 +68,7 @@ async function main(): Promise<void> {
     chainId: chain.chainId,
     environment,
     signer,
+    profile,
     dryRun,
     existingRecord: readDeploymentRecord(recordPath),
     latestTimestamp: async () => {

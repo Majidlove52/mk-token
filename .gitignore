@@ -79,6 +79,9 @@ web_modules/
 # Local deployment records and generated public app configuration
 /deployments/bscTestnet.json
 /app/.env
+/monitor/.monitor-state.json
+/monitor/.monitor-state.json.tmp
+/monitor/dist/
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

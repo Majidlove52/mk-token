@@ -17,3 +17,7 @@ Do not deploy to mainnet until every applicable item is complete and its evidenc
 | Public documentation and allocation disclosures | Product lead | Not started |
 | Legal review for the public sale | Legal counsel | Not started |
 | Incident response plan and contacts | Security lead | Not started |
+| Audit scope, architecture, FAQ, and invariant package delivered | Security lead | Delivered in Phase 7; independent audit not started |
+| Slither report completed for the release commit | Security lead | Not started; template only, execution evidence required |
+| Read-only monitoring configured and tested with production addresses | Operations lead | Unit tests added; production RPC, addresses, alert route, and deployment pending |
+| Incident response contacts verified and reachable | Security lead | Not started; placeholders in `docs/incident-response.md` |

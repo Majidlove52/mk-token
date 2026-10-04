@@ -44,6 +44,16 @@ Follow the [testnet guide](docs/testnet-guide.md) for setup, deployment, verific
 
 For the one-command testnet release sequence, use the [deployment runbook](docs/deployment-runbook.md) and track final gates in the [release checklist](docs/release-checklist.md).
 
+## Official links
+
+| Channel | Destination |
+| --- | --- |
+| GitHub | [github.com/Majidlove52/mk-token](https://github.com/Majidlove52/mk-token) |
+| Website | TBD (not provided) |
+| X | TBD (not provided) |
+| Telegram | TBD (not provided) |
+| Support email | TBD (not provided) |
+
 ## Documentation
 
 - [Whitepaper](docs/whitepaper.md)

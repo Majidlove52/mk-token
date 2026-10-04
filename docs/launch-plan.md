@@ -8,6 +8,8 @@ This comparison is qualitative. Provider fees and requirements change; obtain cu
 
 ## Sale and launch options
 
+The approximate launch date is TBD (not provided). The sale method is undecided.
+
 | Option | Cost | Speed | Trust level | Key risks | Audit needs |
 | --- | --- | --- | --- | --- | --- |
 | Third-party launchpad (for example, PinkSale; subject to due diligence) | Variable platform, listing, and promotion fees | Often faster after acceptance and preparation | Depends on platform controls, disclosure quality, and independent verification; platform branding is not an audit | Platform/custody terms, sale configuration, access restrictions, phishing copies, and jurisdictional obligations | Independent project audit remains required; review launchpad contract and sale configuration |
@@ -37,8 +39,8 @@ Dates below are planning placeholders. Do not publish a date until approvals and
 
 | Timing | Planned communication | Status |
 | --- | --- | --- |
-| T-30 days | Publish reviewed documents and risk disclosures | [TBD] |
-| T-14 days | Publish verified addresses, audit status, and launch method | [TBD] |
-| T-7 days | Publish final schedule, eligibility, and support channels | [TBD] |
-| T-0 | Publish transaction links and operational status | [TBD] |
-| T+1 to T+30 | Publish monitoring updates and material incident notices | [TBD] |
+| T-30 days | Publish reviewed documents and risk disclosures | TBD (date not provided) |
+| T-14 days | Publish verified addresses, audit status, and launch method | TBD (date not provided) |
+| T-7 days | Publish final schedule, eligibility, and support channels | TBD (date not provided) |
+| T-0 | Publish transaction links and operational status | TBD (date not provided) |
+| T+1 to T+30 | Publish monitoring updates and material incident notices | TBD (date not provided) |

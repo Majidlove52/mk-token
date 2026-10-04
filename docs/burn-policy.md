@@ -6,7 +6,7 @@ This document describes a proposed, voluntary process. It is not a commitment to
 
 ## Process
 
-If approved after legal, tax, and operational review, the team may use **[__%] of net subscription revenue** for voluntary MKA purchases. The percentage, definition of net revenue, deductions, schedule, and execution controls are placeholders until formally approved and published. No purchase is automatic or guaranteed.
+If approved after legal, tax, and operational review, the team may use a percentage of net subscription revenue for voluntary MKA purchases. **Percentage: Later (not set; subject to separate approval).** The definition of net revenue, deductions, schedule, and execution controls also require formal approval and publication. No purchase is automatic or guaranteed.
 
 For each approved purchase, the team would publish the funding period and calculation, transaction records, and acquired amount. The team may then send MKA to the deployed `MKABurnVault` address. Anyone can call `burnAll()`; the vault burns its full pending MKA balance and emits `Burned(caller, amount)`. The vault does not buy tokens, hold subscription revenue, or give callers a reward.
 

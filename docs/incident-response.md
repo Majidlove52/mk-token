@@ -6,14 +6,14 @@ This runbook coordinates communication and mitigation. The contracts have no pau
 
 Before production use, publish and verify these contacts in the team's approved internal contact system:
 
-| Role | Contact placeholder |
+| Role | Contact status |
 | --- | --- |
-| Incident lead / security owner | `[NAME, secure contact, backup]` |
-| Contract and infrastructure operator | `[NAME, secure contact, backup]` |
-| Communications lead | `[NAME, secure contact, backup]` |
-| Legal counsel / privacy lead | `[NAME, secure contact]` |
-| Hosting, RPC, and domain providers | `[PROVIDER SUPPORT ROUTE, ACCOUNT OWNER]` |
-| Relevant exchanges or platforms | `[VERIFIED SECURITY CONTACT, if applicable]` |
+| Incident lead / security owner | TBD (contact not provided; fill in the approved internal contact system) |
+| Contract and infrastructure operator | TBD (contact not provided; fill in the approved internal contact system) |
+| Communications lead | TBD (contact not provided; fill in the approved internal contact system) |
+| Legal counsel / privacy lead | TBD (contact not provided; fill in the approved internal contact system) |
+| Hosting, RPC, and domain providers | TBD (provider contacts not provided) |
+| Relevant exchanges or platforms | TBD (verified security contacts not provided, if applicable) |
 
 Maintain an out-of-band contact method. Never publish passwords, API credentials, private keys, seed phrases, or sensitive personal information in incident channels.
 

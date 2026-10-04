@@ -1,5 +1,7 @@
 # MKA Token-Gate Service
 
+**Phase 2 (deferred):** the token-gate service is planned, subject to independent audit and remediation. It is not available at the initial core launch. See [launch phases](../docs/launch-phases.md) for entry criteria.
+
 Minimal TypeScript/Express service for checking MKA staking access tiers. It is configured for BSC testnet and does not custody tokens or initiate transactions.
 
 ## Setup

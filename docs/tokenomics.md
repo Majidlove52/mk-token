@@ -22,11 +22,11 @@ The deployed team vesting wallet does not receive tokens automatically. The inte
 
 ## Utility
 
-Proposed utility includes subscription discounts, staking tiers, and access to token-gated tools. These features are product and policy proposals, not functionality implemented in the token contract. Any staking product should be separately specified, reviewed, and audited.
+The initial core launch is limited to the token and team vesting. Subscription discounts, staking tiers, and token-gated tools are planned, subject to independent audit, product delivery, and legal review; they are not available at launch. These are product proposals, not functionality implemented in the token contract.
 
 ## Buyback and burn policy
 
-No buyback is automatic or guaranteed. If a buyback program is approved, publish its funding source, schedule, execution records, and wallet addresses in advance. Tokens may be burned through the standard ERC-20 burn functions; report each burn transaction and updated supply transparently. No administrator has a privileged burn function.
+Any buyback policy and dedicated burn-vault workflow are planned, subject to independent audit, legal review, and separate approval; neither is available at launch. The token's holder-operated burn function remains available, but does not constitute a buyback program. If a buyback program is approved in the future, publish its funding source, schedule, execution records, and wallet addresses in advance. No buyback or financial result is promised.
 
 ## Transparency measures
 

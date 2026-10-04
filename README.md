@@ -30,13 +30,13 @@ The coverage suite targets 100% coverage of both project contracts.
 
 ## Testnet deployment
 
-After configuring the environment variables, deploy only to BSC testnet:
+The deployment orchestrator is restricted to BSC Testnet (chain ID 97). `DEPLOY_PROFILE=core` is the default and includes only the token and vesting; `full` retains the staking and burn-vault deployment for deferred Phase 2. Dry-run defaults to true:
 
 ```sh
-npx hardhat run scripts/deploy.ts --network bscTestnet
+DEPLOY_PROFILE=core DRY_RUN=true npx hardhat run scripts/deployAll.ts --network bscTestnet
 ```
 
-The script prints contract addresses and BscScan verification commands. It does not deploy to mainnet and does not automatically fund the vesting wallet; transfer the intended team allocation to its address only after reviewing the allocation and operational controls. Mainnet deployment requires an external audit, a Multisig treasury, and a liquidity lock first.
+The script estimates the deployment plan without sending transactions or writing a deployment record. The core profile does not require staking tier thresholds. Review [the testnet deployment runbook](docs/deployment-runbook.md) before any separately authorized testnet deployment. Never commit `.env` or share a private key.
 
 ## Testnet workflow
 
@@ -49,6 +49,7 @@ For the one-command testnet release sequence, use the [deployment runbook](docs/
 - [Whitepaper](docs/whitepaper.md)
 - [Litepaper](docs/litepaper.md)
 - [Launch plan](docs/launch-plan.md)
+- [Launch phases and Phase 2 entry criteria](docs/launch-phases.md)
 - [Legal notes](docs/legal-notes.md)
 - [Brand and official links](docs/brand-and-links.md)
 - [Staking access tiers](docs/staking.md)
@@ -56,6 +57,7 @@ For the one-command testnet release sequence, use the [deployment runbook](docs/
 - [Public burn policy](docs/burn-policy.md)
 - [dApp guide](docs/dapp-guide.md)
 - [Deployment runbook](docs/deployment-runbook.md)
+- [Release readiness and Phase 2 gates](docs/mainnet-readiness.md)
 - [Release checklist](docs/release-checklist.md)
 - [Audit scope](docs/audit-scope.md)
 - [Architecture](docs/architecture.md)

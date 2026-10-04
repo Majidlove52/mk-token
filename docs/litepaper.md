@@ -12,7 +12,7 @@ The project aims to make related market tools easier to discover and access thro
 
 ## Proposed MKA utility
 
-Potential uses include subscription discounts, staking tiers that determine access levels, in-app payments, and token-gated tools. These are proposals rather than current contract features. Any staking tier is an access mechanism, not a promise of yield or token rewards. Separate service terms and legal review will be required before these functions launch.
+The initial core launch is limited to the token and team vesting. Subscription discounts, staking tiers, in-app payments, and token-gated tools are planned, subject to independent audit, product delivery, and legal review; they are not available at launch. Any future staking tier is an access mechanism, not a promise of yield or token rewards.
 
 ## Supply and allocation
 
@@ -33,7 +33,11 @@ The proposed team allocation has a 12-month cliff and a 36-month total vesting d
 
 The token contract has no blacklist, transfer taxes, pause control, or upgrade mechanism. Before a mainnet launch, the project intends to publish verified BscScan source, an independent audit and remediation status, a disclosed liquidity lock, and Safe Multisig treasury controls. Completion of these items must be verified through official records; this draft does not claim they are complete.
 
-If adopted after legal review, a buyback policy may use **[__%] of net subscription revenue**. This is an unfilled placeholder, not a commitment. Any approved policy should publish its exact calculation, approvals, execution addresses, and transaction records. Buybacks and burns do not guarantee price effects or financial returns.
+Any buyback policy and dedicated buyback-and-burn workflow are planned, subject to independent audit, legal review, and separate approval; they are not available at launch. The proposed funding source of **[__%] of net subscription revenue** is an unfilled placeholder, not a commitment. Any approved policy should publish its exact calculation, approvals, execution addresses, and transaction records. Token-holder burns do not imply a buyback program or guarantee price effects or financial returns.
+
+## Launch phases
+
+Phase 1 comprises the token, team vesting, Safe Multisig treasury, disclosed liquidity lock, and transparency page. Staking, burn vault, token gate, and related dApp features are deferred to Phase 2 and must meet the independent audit and remediation entry criteria in [launch phases](launch-phases.md).
 
 ## Roadmap and team
 

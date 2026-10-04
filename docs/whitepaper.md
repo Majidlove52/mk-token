@@ -22,14 +22,14 @@ Tools are informational software, not individualized financial advice. Users rem
 
 ## MKA utility
 
-Proposed utility, subject to product delivery and legal review, includes:
+The initial core launch comprises the token and team vesting only. The following utility features are planned, subject to independent audit, product delivery, and legal review; they are not available at launch:
 
 - **Subscription discounts:** optional discounts for eligible MK Alpha subscriptions, under terms published by the product operator.
 - **Staking tiers:** locking MKA to qualify for product access levels. A tier is an access rule, not a promise of yield, profit, or token rewards.
 - **In-app payments:** paying for supported products or services where permitted.
 - **Token-gated tools:** access checks for selected indicators, scanners, or signal applications.
 
-These features are proposals and are not implemented by the MKA token contract. Any staking or payment feature will require separate terms, technical review, and appropriate legal analysis before release.
+These features are proposals and are not implemented by the MKA token contract. Staking, token gating, and related services are deferred to Phase 2, subject to independent audit and remediation. Any payment feature will require separate terms and appropriate legal analysis before release.
 
 ## Tokenomics
 
@@ -49,10 +49,9 @@ The team vesting schedule has a 12-month cliff and a 36-month total duration. Th
 
 ## Buyback and burn policy
 
-If a buyback program is legally approved and adopted, its proposed funding source is **[__%] of net subscription revenue**. The percentage is a configurable placeholder and is not a current commitment. Before any program begins, publish the approved percentage, the definition of net subscription revenue, exclusions, schedule, execution wallet, and reporting method. Report any executed buyback and burn transactions with on-chain references. Burns use the standard token burn functions and permanently reduce total supply.
-If a buyback program is legally approved and adopted, its proposed funding source is **[__%] of net subscription revenue**. The percentage is a configurable placeholder and is not a current commitment. Before any program begins, publish the approved percentage, the definition of net subscription revenue, exclusions, schedule, execution wallet, and reporting method. MKA voluntarily acquired under an approved policy may be sent to the public `MKABurnVault`; anyone can call `burnAll()` to permanently burn the vault's entire pending balance. Report buyback funding, transfers to the vault, caller, burn amount, and transaction links using on-chain records. The vault does not buy tokens or hold revenue itself.
+Any buyback policy and dedicated buyback-and-burn workflow are planned, subject to independent audit, legal review, and separate approval; they are not available at launch. The proposed funding source is **[__%] of net subscription revenue**, an unfilled placeholder and not a commitment. Before any program begins, publish its approved terms, funding calculation, schedule, execution controls, and reporting method.
 
-No buyback, burn, price effect, or financial return is guaranteed. A burn does not establish a token price or ensure demand.
+Token holders may use the token contract's own standard burn function. This does not imply that a buyback program or dedicated burn vault is available. No buyback, burn policy, price effect, or financial return is guaranteed.
 
 ## Security and transparency
 
@@ -62,14 +61,12 @@ Before any mainnet launch, the project intends to publish verified source on Bsc
 
 ## Roadmap
 
-Timing and scope are placeholders. Each phase requires review and may change; no delivery date is guaranteed.
+Timing and scope are placeholders. The initial core phase includes token, vesting, Safe Multisig treasury, liquidity lock, and transparency page. Staking, burn vault, token gate, and related utilities are deferred to Phase 2, planned subject to independent audit. Each phase requires review and may change; no delivery date is guaranteed.
 
 | Phase | Target quarter | Scope placeholder | Status |
 | --- | --- | --- | --- |
-| 1 | [Quarter / Year] | Testnet validation and documentation | [TBD] |
-| 2 | [Quarter / Year] | Initial indicators and scanner specifications | [TBD] |
-| 3 | [Quarter / Year] | Product access and payment design | [TBD] |
-| 4 | [Quarter / Year] | Broader ecosystem review and release planning | [TBD] |
+| 1 | [Quarter / Year] | Core token and vesting launch with operational controls and transparency | [TBD] |
+| 2 | [Quarter / Year] | Staking, burn vault, and token gate after independent audit and remediation | Deferred |
 
 ## Team
 

@@ -1,6 +1,6 @@
 # MKA Transparency and Staking dApp Guide
 
-The static dApp reads public BSC Testnet contract data through an RPC and uses an injected EIP-1193 wallet for user-authorized staking and public vault burns. It does not require a backend, store private wallet data, or include analytics. Do not put secrets in Vite variables; all `VITE_` values are included in the public build.
+The initial core dApp mode reads public BSC Testnet token and vesting data through an RPC. Staking and burn panels are hidden when their feature flags are false or their contract addresses are empty. Staking, the burn vault, token gating, and related interactions are Phase 2 features, planned subject to independent audit and remediation; they are not available at launch. Do not put secrets in Vite variables; all `VITE_` values are included in the public build.
 
 ## Configure
 
@@ -15,13 +15,15 @@ Fill in the values after testnet deployment:
 | Variable | Value |
 | --- | --- |
 | `VITE_TOKEN_ADDRESS` | Verified MKA token contract address |
-| `VITE_STAKING_ADDRESS` | MKA staking contract address |
-| `VITE_BURN_VAULT_ADDRESS` | Public MKA burn vault address |
+| `VITE_STAKING_ADDRESS` | Phase 2 staking address; empty for core |
+| `VITE_BURN_VAULT_ADDRESS` | Phase 2 burn-vault address; empty for core |
 | `VITE_VESTING_ADDRESS` | Team vesting wallet address |
+| `VITE_FEATURES_STAKING` | `false` for core; Phase 2 opt-in only after its entry gates |
+| `VITE_FEATURES_BURN` | `false` for core; Phase 2 opt-in only after its entry gates |
 | `VITE_CHAIN_ID` | `97` for BSC Testnet; the app rejects other configured chains |
 | `VITE_RPC_URL` | Public or approved BSC Testnet RPC endpoint; no credential-bearing URL |
 
-The app shows an explicit configuration error until all addresses and the RPC are valid. Contract addresses and RPC URLs are public, not secrets.
+The app shows an explicit configuration error until required core addresses and the RPC are valid. Core mode leaves Phase 2 addresses empty and flags false. Contract addresses and RPC URLs are public, not secrets.
 
 ## Local development and checks
 
@@ -43,16 +45,15 @@ The production output is `app/dist/`. Deploy only these static files to an HTTPS
 
 ## Transaction behavior
 
-The staking flow first requests approval for exactly the entered amount when current allowance is insufficient, waits for confirmation, then asks for the stake transaction. Unstaking remains disabled until the contract's full-position seven-day lock expires. The burn action calls `burnAll()` for the whole displayed pending vault balance; any wallet on the correct network can trigger this irreversible burn. Check wallet prompts, spender, amount, contract address, network, and transaction details before signing.
+In a separately approved Phase 2 deployment, the staking flow first requests approval for exactly the entered amount when current allowance is insufficient, waits for confirmation, then asks for the stake transaction. Unstaking remains disabled until the contract's full-position seven-day lock expires. The burn action calls `burnAll()` for the whole displayed pending vault balance; any wallet on the correct network can trigger this irreversible burn. Check wallet prompts, spender, amount, contract address, network, and transaction details before signing.
 
 ## Pre-launch checklist
 
-- [ ] Complete independent audit and remediation for the staking contract and burn vault.
-- [ ] Complete gate-service and dApp security review; test wrong-network and stale-RPC behavior.
-- [ ] Verify all four deployed contract addresses and source pages on BscScan.
+- [ ] Verify token and vesting deployment addresses and source pages on BscScan.
 - [ ] Confirm BSC Testnet chain ID and RPC endpoint; ensure no production secrets are present in build variables.
-- [ ] Test dashboard totals against on-chain balances, including the circulation formula and vault pending amount.
-- [ ] Test wallet connect, chain switch, exact approval, stake, lock countdown, eligible unstake, and rejected transactions.
-- [ ] Verify the burn amount, `Burned` event, total supply delta, and on-chain transaction links.
+- [ ] Test core dashboard totals against token and vesting balances; verify circulating supply and total burned calculations.
+- [ ] Confirm Phase 2 panels are hidden and the independent-audit notice is visible in core mode.
 - [ ] Confirm official site/contract links and anti-phishing guidance before publishing.
 - [ ] Serve production over HTTPS and inspect the built `app/dist/` output for placeholders and accidental data.
+
+Staking, burn-vault, and gate interaction QA belongs to Phase 2 and must wait for the independent review and entry criteria in [launch phases](launch-phases.md).

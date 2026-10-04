@@ -13,6 +13,7 @@ import {
   calculateTier,
   formatCountdown,
   formatUnitsDisplay,
+  isFeatureEnabled,
   nextTierThreshold,
   type TierThresholds,
 } from "./lib/utils";
@@ -61,6 +62,16 @@ const configuredAddresses = {
   vault: String(environment.VITE_BURN_VAULT_ADDRESS || "").trim(),
   vesting: String(environment.VITE_VESTING_ADDRESS || "").trim(),
 };
+const features = {
+  staking: isFeatureEnabled(
+    configuredAddresses.staking,
+    String(environment.VITE_FEATURES_STAKING ?? ""),
+  ),
+  burn: isFeatureEnabled(
+    configuredAddresses.vault,
+    String(environment.VITE_FEATURES_BURN ?? ""),
+  ),
+};
 
 function element<T extends HTMLElement>(id: string): T {
   const found = document.getElementById(id);
@@ -77,6 +88,7 @@ const ui = {
   contracts: element<HTMLDivElement>("contract-addresses"),
   totalSupply: element<HTMLElement>("metric-total-supply"),
   circulating: element<HTMLElement>("metric-circulating"),
+  circulatingNote: element<HTMLElement>("circulating-note"),
   burned: element<HTMLElement>("metric-burned"),
   totalStaked: element<HTMLElement>("metric-staked"),
   pendingBurn: element<HTMLElement>("metric-pending-burn"),
@@ -98,6 +110,11 @@ const ui = {
   burnPanelPending: element<HTMLElement>("burn-panel-pending"),
   burnButton: element<HTMLButtonElement>("burn-button"),
   burnStatus: element<HTMLParagraphElement>("burn-status"),
+  stakingPanel: element<HTMLElement>("staking-panel"),
+  burnPanel: element<HTMLElement>("burn-panel"),
+  comingSoon: element<HTMLElement>("coming-soon"),
+  totalStakedMetric: element<HTMLElement>("metric-staked-card"),
+  pendingBurnMetric: element<HTMLElement>("metric-pending-burn-card"),
 };
 
 function configuredAddress(value: string): string | null {
@@ -116,7 +133,22 @@ const addresses = {
   vault: configuredAddress(configuredAddresses.vault),
   vesting: configuredAddress(configuredAddresses.vesting),
 };
-const addressesReady = Object.values(addresses).every((address) => address !== null);
+const addressesReady =
+  addresses.token !== null &&
+  addresses.vesting !== null &&
+  (!features.staking || addresses.staking !== null) &&
+  (!features.burn || addresses.vault !== null);
+ui.stakingPanel.hidden = !features.staking;
+ui.burnPanel.hidden = !features.burn;
+ui.comingSoon.hidden = features.staking && features.burn;
+ui.totalStakedMetric.hidden = !features.staking;
+ui.pendingBurnMetric.hidden = !features.burn;
+const circulatingExclusions = [
+  "team vesting balance",
+  ...(features.staking ? ["staked balance"] : []),
+  ...(features.burn ? ["pending burn balance"] : []),
+];
+ui.circulatingNote.textContent = `Total supply less ${circulatingExclusions.join(", ")}`;
 
 let readProvider: JsonRpcProvider | undefined;
 let browserProvider: BrowserProvider | undefined;
@@ -210,20 +242,21 @@ function createContractRow(label: string, address: string | null): HTMLElement {
 }
 
 function renderContractAddresses(): void {
-  ui.contracts.replaceChildren(
+  const rows = [
     createContractRow("MKA token", addresses.token),
-    createContractRow("Staking", addresses.staking),
-    createContractRow("Burn vault", addresses.vault),
     createContractRow("Team vesting", addresses.vesting),
-  );
+  ];
+  if (features.staking) rows.splice(1, 0, createContractRow("Staking", addresses.staking));
+  if (features.burn) rows.splice(rows.length - 1, 0, createContractRow("Burn vault", addresses.vault));
+  ui.contracts.replaceChildren(...rows);
 }
 
 function missingConfiguration(): string[] {
   const missing = Object.entries({
     VITE_TOKEN_ADDRESS: addresses.token,
-    VITE_STAKING_ADDRESS: addresses.staking,
-    VITE_BURN_VAULT_ADDRESS: addresses.vault,
     VITE_VESTING_ADDRESS: addresses.vesting,
+    ...(features.staking ? { VITE_STAKING_ADDRESS: addresses.staking } : {}),
+    ...(features.burn ? { VITE_BURN_VAULT_ADDRESS: addresses.vault } : {}),
   })
     .filter(([, value]) => !value)
     .map(([name]) => name);
@@ -241,7 +274,6 @@ async function loadTransparency(): Promise<void> {
     showStatus(`Configure ${missing.join(", ")} in app/.env before loading contract data.`, true);
     return;
   }
-
   try {
     readProvider = new JsonRpcProvider(rpcUrl);
     const network = await readProvider.getNetwork();
@@ -250,15 +282,15 @@ async function loadTransparency(): Promise<void> {
     }
 
     const token = new Contract(addresses.token!, TOKEN_ABI, readProvider);
-    const staking = new Contract(addresses.staking!, STAKING_ABI, readProvider);
-    const vault = new Contract(addresses.vault!, VAULT_ABI, readProvider);
+    const staking = features.staking ? new Contract(addresses.staking!, STAKING_ABI, readProvider) : undefined;
+    const vault = features.burn ? new Contract(addresses.vault!, VAULT_ABI, readProvider) : undefined;
     const vesting = new Contract(addresses.vesting!, VESTING_ABI, readProvider);
-    const [supply, vestingBalance, staked, pending, released] = await Promise.all([
+    const [supply, vestingBalance, released, staked, pending] = await Promise.all([
       token.getFunction("totalSupply")(),
       token.getFunction("balanceOf")(addresses.vesting!),
-      staking.getFunction("totalStaked")(),
-      vault.getFunction("pendingBurn")(),
       vesting.getFunction("released")(addresses.token!),
+      staking ? staking.getFunction("totalStaked")() : Promise.resolve(0n),
+      vault ? vault.getFunction("pendingBurn")() : Promise.resolve(0n),
     ]);
     const circulating = BigInt(supply) - BigInt(vestingBalance) - BigInt(staked) - BigInt(pending);
     const burned = INITIAL_SUPPLY > BigInt(supply) ? INITIAL_SUPPLY - BigInt(supply) : 0n;
@@ -304,7 +336,7 @@ async function updateConnectionState(): Promise<void> {
 }
 
 async function refreshWallet(): Promise<void> {
-  if (!browserProvider || !connectedAddress || !addressesReady || !walletOnTargetChain) {
+  if (!features.staking || !browserProvider || !connectedAddress || !addressesReady || !walletOnTargetChain) {
     ui.walletBalance.textContent = connectedAddress ? "Switch to BSC Testnet" : "Connect wallet";
     ui.walletStaked.textContent = "—";
     ui.currentTier.textContent = "Tier —";

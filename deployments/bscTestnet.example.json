@@ -2,10 +2,9 @@
   "chainId": 97,
   "timestamp": 0,
   "deployer": "",
+  "profile": "core",
   "contracts": {
     "MKAToken": null,
-    "MKATeamVesting": null,
-    "MKAStaking": null,
-    "MKABurnVault": null
+    "MKATeamVesting": null
   }
 }

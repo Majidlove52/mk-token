@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#101512" />
-    <meta name="description" content="Read MKA token transparency data and manage access-only staking on BNB Chain Testnet." />
-    <title>MKA | Transparency & Access</title>
+    <meta name="description" content="Read MKA token and vesting transparency data on BNB Chain Testnet." />
+    <title>MKA | Core Launch Transparency</title>
   </head>
   <body>
     <div class="app-shell">
@@ -24,9 +24,9 @@
       <main>
         <section id="overview" class="page-heading">
           <div>
-            <p class="eyebrow">TRANSPARENCY / ACCESS</p>
+            <p class="eyebrow">CORE LAUNCH / TRANSPARENCY</p>
             <h1>Token overview</h1>
-            <p class="intro">Public contract data and wallet-controlled access staking on BNB Chain Testnet.</p>
+            <p class="intro">Public token and vesting contract data on BNB Chain Testnet.</p>
           </div>
           <div id="connection-state" class="connection-state" role="status" aria-live="polite">Read-only view</div>
         </section>
@@ -43,10 +43,10 @@
           </div>
           <div class="metric-grid">
             <article class="metric"><span>Total supply</span><strong id="metric-total-supply">—</strong><small>MKA</small></article>
-            <article class="metric"><span>Circulating supply</span><strong id="metric-circulating">—</strong><small>Supply less vesting, staking, and burn vault balances</small></article>
+            <article class="metric"><span>Circulating supply</span><strong id="metric-circulating">—</strong><small id="circulating-note">Supply less team vesting, staking, and pending burn balances</small></article>
             <article class="metric"><span>Total burned</span><strong id="metric-burned">—</strong><small>Initial supply less current total supply</small></article>
-            <article class="metric"><span>Total staked</span><strong id="metric-staked">—</strong><small>MKA in access staking</small></article>
-            <article class="metric"><span>Vault pending burn</span><strong id="metric-pending-burn">—</strong><small>MKA held by the public burn vault</small></article>
+            <article class="metric" id="metric-staked-card"><span>Total staked</span><strong id="metric-staked">—</strong><small>MKA in access staking</small></article>
+            <article class="metric" id="metric-pending-burn-card"><span>Vault pending burn</span><strong id="metric-pending-burn">—</strong><small>MKA held by the public burn vault</small></article>
             <article class="metric"><span>Vesting released</span><strong id="metric-vesting-released">—</strong><small>MKA released to the team beneficiary</small></article>
             <article class="metric"><span>Vesting balance</span><strong id="metric-vesting-remaining">—</strong><small>MKA currently held by the vesting contract</small></article>
           </div>
@@ -54,7 +54,7 @@
         </section>
 
         <div class="workspace-grid">
-          <section class="section-block staking-panel" aria-labelledby="staking-title">
+          <section class="section-block staking-panel" id="staking-panel" aria-labelledby="staking-title">
             <div class="section-title-row">
               <div>
                 <p class="eyebrow">WALLET ACCESS</p>
@@ -87,7 +87,7 @@
             </form>
           </section>
 
-          <section class="section-block burn-panel" aria-labelledby="burn-title">
+          <section class="section-block burn-panel" id="burn-panel" aria-labelledby="burn-title">
             <div>
               <p class="eyebrow">PUBLIC BURN VAULT</p>
               <h2 id="burn-title">Pending burn</h2>
@@ -97,12 +97,17 @@
             <button id="burn-button" class="button button-primary button-wide" type="button" disabled>Burn vault balance</button>
             <p id="burn-status" class="action-status" role="status" aria-live="polite"></p>
           </section>
+          <section class="section-block coming-soon-panel" id="coming-soon" aria-labelledby="coming-soon-title">
+            <p class="eyebrow">PHASE 2</p>
+            <h2 id="coming-soon-title">Coming soon after independent audit</h2>
+            <p>Staking access, token-gated features, and the public burn vault are planned for a later phase, subject to an independent audit and remediation.</p>
+          </section>
         </div>
       </main>
 
       <footer class="footer">
         <span>MKA · BNB Chain Testnet</span>
-        <p>Staking is for access tiers only and provides no rewards. Digital assets and smart contracts involve risk; balances, data, and access may be affected by network, wallet, contract, or configuration errors. Verify contract addresses before signing. This dashboard is informational, not financial advice.</p>
+        <p>Phase 2 utility features are planned, subject to independent audit. Digital assets and smart contracts involve risk; balances, data, and access may be affected by network, wallet, contract, or configuration errors. Verify contract addresses before signing. This dashboard is informational, not financial advice.</p>
       </footer>
     </div>
     <script type="module" src="/src/main.ts"></script>

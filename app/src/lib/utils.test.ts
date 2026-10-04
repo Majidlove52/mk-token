@@ -3,6 +3,7 @@ import {
   calculateTier,
   formatCountdown,
   formatUnitsDisplay,
+  isFeatureEnabled,
   nextTierThreshold,
 } from "./utils";
 
@@ -37,5 +38,13 @@ describe("MKA dApp pure utilities", () => {
     expect(formatCountdown(90_061n, 0n)).to.equal("1d 1h 1m 1s");
     expect(formatCountdown(100n, 100n)).to.equal("Unlocked");
     expect(formatCountdown(99n, 100n)).to.equal("Unlocked");
+  });
+
+  it("enables optional features only when an address is configured and the flag is not false", () => {
+    expect(isFeatureEnabled("0xcontract")).to.equal(true);
+    expect(isFeatureEnabled("0xcontract", "true")).to.equal(true);
+    expect(isFeatureEnabled("0xcontract", "FALSE")).to.equal(false);
+    expect(isFeatureEnabled("", "true")).to.equal(false);
+    expect(isFeatureEnabled("  ")).to.equal(false);
   });
 });

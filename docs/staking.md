@@ -1,5 +1,7 @@
 # MKA Staking Access Tiers
 
+**Phase 2 (deferred):** staking tiers are planned, subject to independent audit and remediation. They are not available at the initial core launch. See [launch phases](launch-phases.md) for entry criteria.
+
 MKA staking is an optional access-control mechanism for MK applications. Staked tokens determine a tier that an application can use to offer configured features. **Staking provides access qualification only: it does not generate rewards, emissions, APY, yield, profit sharing, or a financial return.**
 
 ## Tiers

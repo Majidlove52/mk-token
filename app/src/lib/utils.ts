@@ -4,6 +4,10 @@ export interface TierThresholds {
   tier3: bigint;
 }
 
+export function isFeatureEnabled(address: string, featureFlag?: string): boolean {
+  return address.trim().length > 0 && featureFlag?.trim().toLowerCase() !== "false";
+}
+
 export function formatUnitsDisplay(
   value: bigint,
   decimals = 18,

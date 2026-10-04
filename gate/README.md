@@ -11,7 +11,7 @@ npm ci
 cp .env.example .env
 ```
 
-Set `BSC_TESTNET_RPC_URL` and `STAKING_ADDRESS` to the testnet RPC and deployed staking contract. Configure `GATE_CORS_ORIGIN` to the exact app origin (for example, `http://localhost:3000`) and optionally `GATE_PORT` (default `3001`). Never place private keys, seed phrases, or API keys in gate configuration. The gate reads chain data only; users sign a message with their own wallet.
+Set `BSC_TESTNET_RPC_URL` and `STAKING_ADDRESS` to the testnet RPC and deployed staking contract. Configure comma-separated `GATE_ALLOWED_DOMAINS` for exact app hosts/origins and keep `GATE_CORS_ORIGIN` aligned for older clients. `GATE_TIER_CACHE_MS` defaults to 30000; `GATE_PORT` defaults to 3001. Never place private keys, seed phrases, or API keys in gate configuration. The gate reads chain data only; users sign a message with their own wallet.
 
 Start the service:
 
@@ -25,9 +25,21 @@ Run its mocked HTTP and signature tests with the repository test command:
 npm test
 ```
 
-The service allows 60 requests per IP per minute. Wallet nonces expire after five minutes; successful verification returns an address-bound bearer token valid for 30 minutes. Nonces and sessions are in-memory and disappear on restart, so a multi-instance deployment requires a shared store and additional operational review.
+The service allows 60 requests per IP per minute. Wallet nonces expire after five minutes and are single-use. Sign-in messages bind the domain, address, chain ID 97, nonce, issued-at time, and expiry. Successful verification returns an address-bound bearer token with a 30-minute sliding expiry. `GET /session` re-reads the on-chain tier using the short cache; `POST /logout` invalidates the bearer. The legacy `/nonce/:address`, `/verify`, and `/access/:address` endpoints remain available.
 
-## MK app integration
+Memory storage is the default and is process-local. Set `REDIS_URL` to select the optional ioredis store for shared sessions/nonces across multiple Gate instances; the Redis implementation is dynamically loaded only when configured. Protect the Redis endpoint and use TLS for production. The tier cache remains per process, so a changed stake can take up to the configured cache duration to affect access.
+
+## SDK and app integration
+
+Build the reusable client, React bindings, and server middleware from the root:
+
+```sh
+npm run build:gate-sdk
+```
+
+See [the full Gate integration guide](../docs/gate-integration.md) and the [gated-app example](../examples/gated-app/README.md). Client feature checks are UI-only. Enforce protected API routes with `requireFeature` or `requireTier` on the server.
+
+## Legacy endpoint integration
 
 Request a nonce, ask the connected wallet to sign the exact message, verify it, then use the returned bearer token to request the tier:
 

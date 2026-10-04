@@ -5,24 +5,32 @@
   "description": "MK Alpha (MKA) contracts for BNB Chain",
   "scripts": {
     "compile": "hardhat compile",
-    "test": "hardhat test && npm run test:monitor",
+    "test": "hardhat test && npm run test:monitor && npm run test:gate-sdk && npm run test:gated-app",
     "coverage": "hardhat coverage",
     "start:gate": "ts-node gate/src/server.ts",
     "test:monitor": "mocha --require ts-node/register --extension ts \"monitor/test/**/*.test.ts\"",
     "monitor": "ts-node monitor/src/monitor.ts",
-    "build:monitor": "tsc -p monitor/tsconfig.json"
+    "build:monitor": "tsc -p monitor/tsconfig.json",
+    "build:gate-sdk": "npm run build --workspace @mka/gate-sdk",
+    "test:gate-sdk": "npm run build:gate-sdk && npm test --workspace @mka/gate-sdk",
+    "test:gated-app": "npm test --workspace @mka/gated-app",
+    "dev:gated-app": "npm run build:gate-sdk && npm run dev --workspace @mka/gated-app",
+    "start:gated-app-server": "npm run server --workspace @mka/gated-app",
+    "build:gated-app": "npm run build:gate-sdk && npm run build --workspace @mka/gated-app"
   },
+  "workspaces": ["gate-sdk", "examples/gated-app"],
   "dependencies": {
     "cors": "2.8.5",
     "ethers": "6.17.0",
     "express": "4.21.2",
-    "express-rate-limit": "7.5.0"
+    "express-rate-limit": "7.5.0",
+    "ioredis": "5.6.1"
   },
   "devDependencies": {
-    "@types/cors": "2.8.17",
-    "@types/express": "4.17.21",
     "@nomicfoundation/hardhat-toolbox": "6.1.0",
     "@openzeppelin/contracts": "5.1.0",
+    "@types/cors": "2.8.17",
+    "@types/express": "4.17.21",
     "dotenv": "16.4.7",
     "hardhat": "2.28.0",
     "solidity-coverage": "0.8.16",

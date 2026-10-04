@@ -47,7 +47,8 @@ No direct public or external function body in these four project contracts is mi
 
 ## Out Of Scope
 
-- The token-gate service, dApp, website, monitoring process, deployment scripts, CI infrastructure, and operational RPC/Telegram credentials, except where their interfaces affect contract assumptions.
+- The token-gate service, SDK, and gated-app integration are off-chain application components and are not part of this Solidity audit scope. They are candidates for a separate optional application/security review covering session storage, replay/domain binding, server-side authorization, CORS, rate limits, and deployment configuration.
+- The dApp, website, monitoring process, deployment scripts, CI infrastructure, and operational RPC/Telegram credentials, except where their interfaces affect contract assumptions.
 - BNB Chain consensus, validators, bridges, exchanges, liquidity arrangements, wallet software, external APIs, hosted infrastructure, and third-party services.
 - Token economics, market behavior, legal/regulatory conclusions, identity/KYC processes, and any guarantee of product availability or token performance.
 - Deployed addresses or bytecode not supplied and independently matched to this repository revision.

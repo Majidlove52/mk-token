@@ -5,6 +5,7 @@ import type { Express } from "express";
 import { ethers } from "hardhat";
 import { createGateApp, GateDependencies } from "../gate/src/app";
 import { NONCE_TTL_MS } from "../gate/config";
+import { MemorySessionStore } from "../gate/src/session-store";
 
 async function withServer(
   app: Express,
@@ -24,6 +25,25 @@ async function withServer(
       server.close((error) => (error ? reject(error) : resolve()));
     });
   }
+}
+
+async function authenticate(
+  baseUrl: string,
+  wallet: Awaited<ReturnType<typeof ethers.getSigners>>[number],
+  origin = "https://mk-alpha.example",
+): Promise<string> {
+  const nonceResponse = await fetch(`${baseUrl}/nonce/${wallet.address}`, {
+    headers: { Origin: origin },
+  });
+  const challenge = (await nonceResponse.json()) as { message: string };
+  const signature = await wallet.signMessage(challenge.message);
+  const verifyResponse = await fetch(`${baseUrl}/verify`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ address: wallet.address, message: challenge.message, signature }),
+  });
+  expect(verifyResponse.status).to.equal(200);
+  return ((await verifyResponse.json()) as { accessToken: string }).accessToken;
 }
 
 describe("MKA token gate", function () {
@@ -166,5 +186,124 @@ describe("MKA token gate", function () {
       });
       expect(replayResponse.status).to.equal(401);
     });
+  });
+
+  it("binds sign-in to the allow-listed domain and chain 97", async function () {
+    const [wallet] = await ethers.getSigners();
+    let nonce = 0;
+    const dependencies: GateDependencies = {
+      corsOrigin: "https://mk-alpha.example",
+      allowedDomains: ["mk-alpha.example"],
+      nonceGenerator: () => `domain-chain-nonce-${++nonce}`,
+      readStaking: async () => ({ tier: 0, stakedWei: 0n }),
+    };
+
+    await withServer(createGateApp(dependencies), async (baseUrl) => {
+      const rejectedDomain = await fetch(`${baseUrl}/nonce/${wallet.address}`, {
+        headers: { Origin: "https://attacker.example" },
+      });
+      expect(rejectedDomain.status).to.equal(403);
+
+      const nonceResponse = await fetch(`${baseUrl}/nonce/${wallet.address}`, {
+        headers: { Origin: "https://mk-alpha.example" },
+      });
+      const challenge = (await nonceResponse.json()) as { message: string };
+      expect(challenge.message).to.include("Domain: mk-alpha.example");
+      expect(challenge.message).to.include(`Address: ${ethers.getAddress(wallet.address)}`);
+      expect(challenge.message).to.include("Chain ID: 97");
+      expect(challenge.message).to.include("Nonce: domain-chain-nonce-1");
+      expect(challenge.message).to.include("Issued At:");
+      expect(challenge.message).to.include("Expiration Time:");
+
+      for (const tampered of [
+        challenge.message.replace("Domain: mk-alpha.example", "Domain: attacker.example"),
+        challenge.message.replace("Chain ID: 97", "Chain ID: 56"),
+      ]) {
+        const signature = await wallet.signMessage(tampered);
+        const response = await fetch(`${baseUrl}/verify`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ address: wallet.address, message: tampered, signature }),
+        });
+        expect(response.status).to.equal(400);
+      }
+    });
+  });
+
+  it("refreshes tier from staking after the short cache expires", async function () {
+    const [wallet] = await ethers.getSigners();
+    let currentTime = 2_000_000;
+    let currentTier = 3;
+    let readCount = 0;
+    const dependencies: GateDependencies = {
+      now: () => currentTime,
+      corsOrigin: "https://mk-alpha.example",
+      allowedDomains: ["mk-alpha.example"],
+      tierCacheMs: 30_000,
+      sessionGenerator: () => "tier-downgrade-session",
+      readStaking: async () => {
+        readCount += 1;
+        return { tier: currentTier, stakedWei: currentTier === 0 ? 0n : ethers.parseEther("1000") };
+      },
+    };
+
+    await withServer(createGateApp(dependencies), async (baseUrl) => {
+      const token = await authenticate(baseUrl, wallet);
+      const getSession = () => fetch(`${baseUrl}/session`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+
+      const initial = await getSession();
+      expect(initial.status).to.equal(200);
+      expect((await initial.json() as { tier: number }).tier).to.equal(3);
+
+      currentTier = 0;
+      const cached = await getSession();
+      expect((await cached.json() as { tier: number }).tier).to.equal(3);
+      expect(readCount).to.equal(1);
+
+      currentTime += 30_001;
+      const downgraded = await getSession();
+      expect(downgraded.status).to.equal(200);
+      expect(await downgraded.json()).to.deep.equal({
+        address: ethers.getAddress(wallet.address),
+        tier: 0,
+        features: [],
+        expiresAt: new Date(currentTime + 30 * 60 * 1000).toISOString(),
+      });
+      expect(readCount).to.equal(2);
+    });
+  });
+
+  it("invalidates an active session on logout", async function () {
+    const [wallet] = await ethers.getSigners();
+    const dependencies: GateDependencies = {
+      corsOrigin: "https://mk-alpha.example",
+      allowedDomains: ["mk-alpha.example"],
+      readStaking: async () => ({ tier: 1, stakedWei: ethers.parseEther("100") }),
+    };
+
+    await withServer(createGateApp(dependencies), async (baseUrl) => {
+      const token = await authenticate(baseUrl, wallet);
+      const headers = { authorization: `Bearer ${token}` };
+      const logout = await fetch(`${baseUrl}/logout`, { method: "POST", headers });
+      expect(logout.status).to.equal(200);
+      expect(await logout.json()).to.deep.equal({ loggedOut: true });
+      expect((await fetch(`${baseUrl}/session`, { headers })).status).to.equal(401);
+      expect((await fetch(`${baseUrl}/access/${wallet.address}`, { headers })).status).to.equal(401);
+    });
+  });
+
+  it("expires and consumes in-memory store entries exactly once", async function () {
+    let currentTime = 100;
+    const store = new MemorySessionStore(() => currentTime);
+    await store.set("nonce:test", { nonce: "once" }, 200);
+    expect((await store.get<{ nonce: string }>("nonce:test"))?.value.nonce).to.equal("once");
+    expect((await store.consume<{ nonce: string }>("nonce:test"))?.value.nonce).to.equal("once");
+    expect(await store.consume("nonce:test")).to.equal(undefined);
+
+    await store.set("session:test", { address: "0x1" }, 200);
+    currentTime = 200;
+    expect(await store.get("session:test")).to.equal(undefined);
   });
 });

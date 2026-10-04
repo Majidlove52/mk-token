@@ -21,3 +21,5 @@ Do not deploy to mainnet until every applicable item is complete and its evidenc
 | Slither report completed for the release commit | Security lead | Not started; template only, execution evidence required |
 | Read-only monitoring configured and tested with production addresses | Operations lead | Unit tests added; production RPC, addresses, alert route, and deployment pending |
 | Incident response contacts verified and reachable | Security lead | Not started; placeholders in `docs/incident-response.md` |
+| Gate session and server-side authorization review | Security lead | Not started; off-chain optional review scope documented |
+| Gate multi-instance Redis/session and load test | Operations lead | Not started; configure and test before production use |

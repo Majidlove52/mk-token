@@ -1,7 +1,24 @@
 import "dotenv/config";
 import { Contract, getAddress, isAddress, JsonRpcProvider, ZeroAddress } from "ethers";
 import { createGateApp } from "./app";
-import { DEFAULT_CORS_ORIGIN } from "../config";
+import { DEFAULT_CORS_ORIGIN, DEFAULT_TIER_CACHE_MS } from "../config";
+import { MemorySessionStore, SessionStore } from "./session-store";
+
+function positiveInteger(value: string | undefined, fallback: number): number {
+  if (value === undefined || value.trim() === "") return fallback;
+  const parsed = Number(value);
+  if (!Number.isSafeInteger(parsed) || parsed < 1) {
+    throw new Error("GATE_TIER_CACHE_MS must be a positive integer");
+  }
+  return parsed;
+}
+
+async function configuredSessionStore(): Promise<SessionStore> {
+  const redisUrl = process.env.REDIS_URL;
+  if (!redisUrl) return new MemorySessionStore();
+  const { RedisSessionStore } = await import("./redis-session-store");
+  return new RedisSessionStore(redisUrl);
+}
 
 function requiredEnvironmentValue(name: string): string {
   const value = process.env[name];
@@ -44,6 +61,12 @@ async function main(): Promise<void> {
   );
   const app = createGateApp({
     corsOrigin: process.env.GATE_CORS_ORIGIN || DEFAULT_CORS_ORIGIN,
+    allowedDomains: (process.env.GATE_ALLOWED_DOMAINS || "")
+      .split(",")
+      .map((domain) => domain.trim())
+      .filter(Boolean),
+    tierCacheMs: positiveInteger(process.env.GATE_TIER_CACHE_MS, DEFAULT_TIER_CACHE_MS),
+    sessionStore: await configuredSessionStore(),
     readStaking: async (address) => {
       const [tier, stakedWei] = await Promise.all([
         staking.getFunction("tierOf")(address),

@@ -27,8 +27,11 @@ The contract has no owner, admin, upgrade path, pause, fee, reward, or privilege
 
 The gate is an application authorization service, not an on-chain custody component. It reads tier and balance from the configured staking contract, validates wallet addresses, and requires a server-issued message signature before returning access information.
 
-- Nonces are random, bound to origin and address, expire after five minutes, and are consumed on successful verification to prevent replay.
-- Access tokens are random, address-bound, held in process memory, and expire after 30 minutes. Restarting the service invalidates sessions. Multiple instances require a shared, secure nonce/session store before use.
+- Nonces are random and single-use, and the signed message binds the allow-listed domain, address, BSC Testnet chain ID 97, issued-at time, and five-minute expiry. The Gate compares every field with the stored challenge and consumes the nonce atomically after signature verification to prevent replay, including concurrent replay attempts.
+- Nonces and sessions use an expiring `SessionStore`. Memory storage is the default; setting `REDIS_URL` dynamically loads ioredis and selects a shared Redis store. Memory state disappears on restart and does not work across instances. Redis must be private, access-controlled, and configured with TLS where available; Redis outage should fail closed.
+- Access tokens are random, address-bound bearer credentials with a 30-minute sliding expiry. The SDK stores them in memory by default; optional `sessionStorage` is tab-scoped. Never log or place tokens in URLs, markup, or analytics. `/logout` deletes the current token from the shared store.
+- `GET /session` re-reads the current staked tier with a 30-second default cache. SDK server middleware also uses a short local cache; cache windows can temporarily preserve an earlier tier after stake changes. Tier cache is per process even when Redis shares sessions.
+- `GATE_ALLOWED_DOMAINS` is an exact comma-separated host/origin allow-list used for sign-in domain binding and CORS. CORS alone is not authentication. Configure HTTPS, the exact deployed app origins, session lifetime, and rate limits.
 - Rate limits reduce simple request flooding but do not prevent distributed denial of service. Configure infrastructure-level limits and monitoring for production.
 - CORS is browser policy, not authentication. Keep the allowed origin narrow and require HTTPS outside local development.
 - RPC outages, stale chain data, a wrong staking address, or an incorrect chain can return incorrect or unavailable access data. The service startup checks for BSC testnet chain ID 97.
